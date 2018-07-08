@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: payment-fmbk-zuul
+server:
+  port: 8762
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  host:
+    socket-timeout-millis: 60000
+    connect-timeout-millis: 10000
+    max-per-route-connections: 20
+    max-total-connections: 200
+hystrix:
+    command:
+        default:
+            execution:
+                isolation:
+                    thread:
+                        timeoutInMilliseconds: 60000
+
+ribbon:
+  ReadTimeout: 10000
+  ConnectTimeout: 60000
