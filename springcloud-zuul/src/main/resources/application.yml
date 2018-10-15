@@ -1,25 +1,64 @@
 spring:
   application:
-    name: payment-fmbk-zuul
+    name: cloud-zuul
 server:
   port: 8762
+# feign配置，使用appach client 替代默认urlConnection
+feign:
+  hystrix:
+    enabled: true
+  httpclient:
+    enabled: true
+    connection-timeout: 30000
+    max-connections: 5000
+    time-to-live: 30
+    time-to-live-unit: seconds
+    max-connections-per-route: 1000
+  okhttp:
+    enabled: false
+  client:
+    config:
+      default:
+        connectTimeout: 10000
+        readTimeout: 10000
+#hystrix 配置
+hystrix:
+  threadpool:
+    default:
+      coreSize: 50
+      allowMaximumSizeToDivergeFromCoreSize: true
+      maxQueueSize: -1
+      maximumSize: 100
+      queueSizeRejectionThreshold: -1
+      keepAliveTimeMinutes: 10
+      metrics:
+        rollingStats: 10
+        numBuckets: 50
+  command:
+    default:
+      fallback:
+        isolation:
+          semaphore:
+            maxConcurrentRequests: 100
+      circuitBreaker:
+        requestVolumeThreshold: 1000
+      execution:
+        timeout:
+          enable: true
+        isolation:
+          strategy: SEMAPHORE
+          semaphore:
+            maxConcurrentRequests: 3000
+          thread:
+            timeoutInMilliseconds: 30000
 eureka:
+  instance:
+    lease-expiration-duration-in-seconds: 10
+    lease-renewal-interval-in-seconds: 5
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    metadata-map:
+      cluster: default
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
-  host:
-    socket-timeout-millis: 60000
-    connect-timeout-millis: 10000
-    max-per-route-connections: 20
-    max-total-connections: 200
-hystrix:
-    command:
-        default:
-            execution:
-                isolation:
-                    thread:
-                        timeoutInMilliseconds: 60000
-
-ribbon:
-  ReadTimeout: 10000
-  ConnectTimeout: 60000

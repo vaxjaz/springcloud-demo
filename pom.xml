@@ -6,7 +6,7 @@
 	<groupId>com.jay.li</groupId>
 	<artifactId>springcloud-demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 
 	<name>springcloud-demo</name>
 	<description>Demo project for Spring Boot</description>
@@ -20,6 +20,7 @@
 	<modules>
 		<module>springcloud-zuul</module>
 		<module>springcloud-server</module>
+		<module>springcloud-provier</module>
 	</modules>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
