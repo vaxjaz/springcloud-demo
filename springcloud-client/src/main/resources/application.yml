@@ -1,0 +1,69 @@
+server:
+  port: 8764
+eureka:
+  instance:
+#    心跳上报超时时间
+    lease-expiration-duration-in-seconds: 10
+#    心跳上报间隔
+    lease-renewal-interval-in-seconds: 5
+#    使用ip注册,默认是主机名
+    prefer-ip-address: true
+#    获取本机ip后注册
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    metadata-map:
+      cluster: default
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+spring:
+  application:
+    name: demo-client
+
+# feign配置，使用appach client 替代默认urlConnection
+feign:
+  hystrix:
+    enabled: true
+  httpclient:
+    enabled: true
+    connection-timeout: 30000
+    max-connections: 5000
+    time-to-live: 30
+    time-to-live-unit: seconds
+    max-connections-per-route: 1000
+  okhttp:
+    enabled: false
+  client:
+    config:
+      default:
+        connectTimeout: 10000
+        readTimeout: 10000
+#hystrix 配置　
+hystrix:
+  threadpool:
+    default:
+      coreSize: 50
+      allowMaximumSizeToDivergeFromCoreSize: true
+      maxQueueSize: -1
+      maximumSize: 100
+      queueSizeRejectionThreshold: -1
+      keepAliveTimeMinutes: 10
+      metrics:
+        rollingStats: 10
+        numBuckets: 50
+  command:
+    default:
+      fallback:
+        isolation:
+          semaphore:
+            maxConcurrentRequests: 100
+      circuitBreaker:
+        requestVolumeThreshold: 1000
+      execution:
+        timeout:
+          enable: true
+        isolation:
+          strategy: SEMAPHORE
+          semaphore:
+            maxConcurrentRequests: 3000
+          thread:
+            timeoutInMilliseconds: 30000
