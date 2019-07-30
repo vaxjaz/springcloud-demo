@@ -27,7 +27,7 @@ import java.util.Map;
  */
 public final class GroovyUitls {
 
-    private static final String filePathName = "D:\\groovy";
+    private static final String filePathName = "springcloud-zuul/groovy";
     private static final String getRoutes = "getRoutes";
 
     /**

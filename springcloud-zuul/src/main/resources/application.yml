@@ -62,3 +62,12 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+#  静态路由
+#zuul:
+#  ignored-services: '*'
+#  routes:
+#    demo-client: /demo-client/**
+#　动态路由
+#　详见　本项目groovy包下demo.groovy文件
+
+
