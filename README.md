@@ -22,17 +22,15 @@ spring-cloud-starter-netflix-eureka-server<br></br>
 会取/etc/hosts里面的主机名(windows system32 driver etc hosts文件)　　
 ### feign client
 feign的原理以及熔断使用和异常处理详细内容见demo-client 注释　　
-feign默认是集成了熔断和负载的.熔断相关看配置文件,默认负载开启的,只需要２个服务示例即可,都是客户端负载.　　
-
-如果使用restTemplate调用不使用feign需要配置　　　
-　
+feign默认是集成了熔断和负载的.熔断相关看配置文件,默认负载开启的,只需要２个服务示例即可,都是客户端负载.  
+如果使用restTemplate调用不使用feign需要配置  
   　@LoadBalanced
     @Bean
     RestTemplate restTemplate() {
         return new RestTemplate();
     }
- 就可实现负载.　　
- 当使用restTemplate调用第三方服务的时候需要另外注入一个Bean,取别名,并且不能添加　@LoadBalanced注解　　
+ 就可实现负载.  
+ notice:当使用restTemplate调用第三方服务的时候需要另外注入一个Bean,取别名,并且不能添加　@LoadBalanced注解　　
  
 
 
