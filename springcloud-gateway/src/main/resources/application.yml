@@ -1,0 +1,29 @@
+server:
+  port: 8760
+eureka:
+  instance:
+    #    心跳上报超时时间
+    lease-expiration-duration-in-seconds: 10
+    #    心跳上报间隔
+    lease-renewal-interval-in-seconds: 5
+    #    使用ip注册,默认是主机名
+    prefer-ip-address: true
+    #    获取本机ip后注册
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    metadata-map:
+      cluster: default
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+spring:
+  application:
+    name: demo-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: demo-client
+          uri: lb://demo-client
+          predicates:
+            - Path=/demo-client/**
+          filters:
+            - StripPrefix=1
