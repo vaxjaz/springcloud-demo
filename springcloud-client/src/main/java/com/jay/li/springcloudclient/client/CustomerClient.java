@@ -65,7 +65,7 @@ public interface CustomerClient {
                 public String test() {
                     log.error("进入熔断");
                     throwable.printStackTrace();
-                    return null;
+                    return "进入熔断";
                 }
 
             };

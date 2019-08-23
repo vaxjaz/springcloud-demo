@@ -22,6 +22,7 @@
 		<module>springcloud-service</module>
 		<module>springcloud-client</module>
 		<module>springcloud-server-registered</module>
+		<module>springcloud-gateway</module>
 	</modules>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
