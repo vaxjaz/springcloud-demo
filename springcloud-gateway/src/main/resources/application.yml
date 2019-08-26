@@ -27,3 +27,8 @@ spring:
             - Path=/demo-client/**
           filters:
             - StripPrefix=1
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
