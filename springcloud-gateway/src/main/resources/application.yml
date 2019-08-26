@@ -26,6 +26,11 @@ spring:
           predicates:
             - Path=/demo-client/**
           filters:
+            - name: RateLimitFilterFactory
+              args:
+                capacity: 10
+                refillTokens: 1
+                refillDuration: 1
             - StripPrefix=1
 management:
   endpoints:
